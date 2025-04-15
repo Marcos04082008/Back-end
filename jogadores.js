@@ -58,7 +58,24 @@ let times = [
 
 function verTimes(){
     times.forEach((time)=>{
-        console.log(times[0].nome+"-"+times[0].goleiro + "(goleiro)");
+      console.log(time.nome + "-" + 
+                   time.goleiro + "(goleiro)," + 
+                   time.alaDireito + "(Ala Direito)," + 
+                   time.alaEsquerdo + "(Ala Esquerdo)," + 
+                   time.fixo + "(Fixo),"+
+                   time.tecnico + "(Técnicos),"+
+                   time.vitorias + "(Vitorias),"+
+                   time.derrotas + "(derrotas)")
     });
 }
+function criarArquivo(){
+    let dadosEmTexto = JSON.stringify(times);
+    console.log(dadosEmTexto);
+    const fs = require("fs");
+    fs.writeFileSync("dados.json", dadosEmTexto);
+    console.log("Arquivo criado");
+
+ }
+
+
 verTimes();
