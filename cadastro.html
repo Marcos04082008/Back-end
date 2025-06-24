@@ -4,6 +4,31 @@
     <meta charset="UTF-8">
     <title>Formulário de Cadastro</title>
     <link rel="stylesheet" href="cadastro.css">
+    <script>
+        function pesquisaCEP(){
+            var validacep = /^[0-9]{8}$/;
+            const cep = document.getElementById("cep").value
+            resposta.textContent = cep
+
+            if(validacep.test(cep)){
+                var script = document.createElement("script")
+                script.src = "https://viacep.com.br/ws/" + cep + "/json/?callback=preencherCEP"
+                document.body.appendChild(script)
+        } else {
+            alert("CEP preenchido incorretamente!")
+        }
+
+        
+        function preencherCEP(conteudo){
+            if("erro" in conteudo){
+            resposta.textContent = "CEP não encontrado, digite manualmente o endereço!"
+        } else {
+            document.getElementById("rua").value = conteudo.logradouro
+            document.getElementById("cidade").value = conteudo.localidade
+            }
+        }
+       
+    </script>
 </head>
 <body>
 
@@ -26,7 +51,15 @@
             <div class="linha">
                 <div class="campo">
                     <label for="cep">CEP:</label>
-                    <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+                    <input type="text" id="cep" required>
+
+             <label for="rua">rua</label>
+             <input type="text" id="rua" required>
+             <label for="cidade">cidade</label>
+             <input type="text" id="cidade" required>
+
+            <p id="resposta"></p>
+            <input type="button" value="ENVIAR" onclick="pesquisaCEP();">
                 </div>
 
                 <div class="campo">
